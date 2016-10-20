@@ -47,5 +47,3 @@ df[-row.idx,] %>%
 
 That worked, but I would like to make the location change each time after the marker is clicked. That's too involved for now.
 
-I tried to put the popup's into the dataframe too, but that didn't work.
-That way the text could have popped up with "not here" or such.
