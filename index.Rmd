@@ -1,0 +1,51 @@
+---
+title: "Rmarkdown and Leaflet Assignment"
+author: "Alan Luscombe"
+always_allow_html: yes
+---
+
+## Introduction
+
+This work is based on the examples provided in the course.
+It shows the location of Jeff Leek's office and some random point called "Alan's Office"
+This document was knitted into HTML at the date-time below. 
+```{r time_chunk, echo=TRUE, comment=""}
+date()
+```
+
+### Initialise
+
+```{r init_lib}
+library("leaflet")
+```
+
+
+## Where is Alan's Office?
+
+The following code shows some randomization of the location that is to have the "Alan's Office" text. Click on the markers to find Alan's Office location.
+
+```{r where_is_office, eval=TRUE, echo=TRUE}
+set.seed(2016-04-25)
+
+df <- data.frame(lat = -runif(5, min = 8.8030, max = 53.8170),
+                 lng = runif(5, min = -51.0021, max = 151.0092))
+
+row.idx <- sample(1:dim(df)[[1]], 1)
+
+df[-row.idx,] %>% 
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(lat=df[row.idx,1], lng=df[row.idx,2], 
+             popup="Alan's Office") %>%
+  addMarkers(lat=33.8, lng=-76.5898801, 
+             popup="Jeff Leek's Office") %>%
+  addMarkers(popup = "Not here")
+```
+
+
+## Conclusion
+
+That worked, but I would like to make the location change each time after the marker is clicked. That's too involved for now.
+
+I tried to put the popup's into the dataframe too, but that didn't work.
+That way the text could have popped up with "not here" or such.
