@@ -35,7 +35,10 @@ setwd("C:\\Users\\Alan\\Desktop\\DSc-DataProducts\\wk3-ass\\")
 fuelDS <- read.csv("Ballina-CTX-Fuel-September-2016.csv")
 fuelDS$PriceUpdatedDate <- c(dmy_hm(fuelDS$PriceUpdatedDate[1:39]),dmy_hms(fuelDS$PriceUpdatedDate[40:91]))
 attach(fuelDS)
-plot_ly(fuelDS, x = PriceUpdatedDate, y = Price, color = FuelCode, type = "scatter")
+
+plot_ly(fuelDS, x = PriceUpdatedDate, y = Price, color = FuelCode, type = "scatter") %>%
+  layout(title = "Fuel prices for Ballina Caltex, Sept 2016",
+           yaxis = list(title = "Fuel Price in cents"))
 ```
 
 ## References
