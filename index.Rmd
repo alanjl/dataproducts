@@ -14,7 +14,7 @@ The complete data set shows fuel prices for service stations in New South Wales 
 
 The plot shows data extracted for only one service station for simplicity.  
 
-## Basic plot    
+## Caltex Ballina Fuel prices September 2016    
 
 ```{r, eval=TRUE, echo = FALSE, message = FALSE, warning=FALSE}
 library(plotly)
@@ -26,11 +26,10 @@ fuelDS$PriceUpdatedDate <- c(dmy_hm(fuelDS$PriceUpdatedDate[1:39]),dmy_hms(fuelD
 attach(fuelDS)
 
 plot_ly(fuelDS, x = PriceUpdatedDate, y = Price, color = FuelCode, type = "scatter") %>%
-  layout(title = "Fuel prices for Ballina Caltex, Sept 2016",
-           yaxis = list(title = "Fuel Price in cents"))
+  layout(yaxis = list(title = "Fuel Price in cents"))
 ```
    
-## Basic plot Notes
+## Notes
 
 The data is a data frame with values for three different types of fuel, E10, P95 and PDL.
 Where:  
