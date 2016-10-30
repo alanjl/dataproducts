@@ -1,33 +1,22 @@
 ---
-title: 'Fuel Prices in September 2016'
+title: "Fuel Prices in September 2016"
 author: "Alan Luscombe"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-always_allow_html: yes
+date: '2016-10-30'
+output: ioslides_presentation
 ---
 ## New South Wales Fuel Check
 
 Fuel Check is a NSW Government supplied open dataset [1].
 
 The following plot makes use of Plotly to present the data.  
+
 The complete data set shows fuel prices for service stations in New South Wales in September.  
+
 The plot shows data extracted for only one service station for simplicity.  
 
+## Basic plot    
 
-## Basic plot
-
-The data is a data frame with values for three different types of fuel, E10, P95 and PDL.
-Where:  
-* E10 is fuel containing 10% ethanol  
-* P95 is premium grade 95  
-* PDL is premium diesel  
-
-Note that the data in the original file is messy, the first 39 rows do not have a seconds field, whereas the second set of rows does have seconds. Hence the need for the two lubridate formats.
-
-Note also that there are multiple observations on the same day.  This makes the data appear by default as a scatter plot.  I would prefer to manipulate the data further in order to make a clean time series, but time is limited.
-
-Note also that there is not much data for the PDL FuelCode.
-
-```{r, eval=TRUE, echo = TRUE, message = FALSE, warning=FALSE}
+```{r, eval=TRUE, echo = FALSE, message = FALSE, warning=FALSE}
 library(plotly)
 library(lubridate)
 
@@ -40,6 +29,19 @@ plot_ly(fuelDS, x = PriceUpdatedDate, y = Price, color = FuelCode, type = "scatt
   layout(title = "Fuel prices for Ballina Caltex, Sept 2016",
            yaxis = list(title = "Fuel Price in cents"))
 ```
+   
+## Basic plot Notes
+
+The data is a data frame with values for three different types of fuel, E10, P95 and PDL.
+Where:  
+* E10 is fuel containing 10% ethanol  
+* P95 is premium grade 95  
+* PDL is premium diesel  
+
+Note also that there are multiple observations on the same day.  This makes the data appear by default as a scatter plot.  I would prefer to manipulate the data further in order to make a clean time series, but time is limited.
+
+Note also that there is not much data for the PDL FuelCode.   
+
 
 ## References
 1. New South Wales Government Fair Trading Fuel Check
