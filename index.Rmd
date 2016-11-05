@@ -1,49 +1,69 @@
 ---
-title: "Fuel Prices in September 2016"
+title: "Playing with linear models"
 author: "Alan Luscombe"
-date: '2016-10-30'
-output: ioslides_presentation
+highlighter: highlight.js
+hitheme: tomorrow
+job: Data Products course presentation
+knit: slidify::knit2slides
+mode: selfcontained
+subtitle: Visualizing random data about a line
+framework: io2012
+widgets: []
 ---
-## New South Wales Fuel Check
 
-Fuel Check is a NSW Government supplied open dataset [1].
+## A Tool to explore linear models
 
-The following plot makes use of Plotly to present the data.  
+* Students can easily play with the data parameters
+* App provides insight through immediate visualization
+* Linear model and fit estimate (R-squared) feedback
+* Intuitive understanding of linear model
 
-The complete data set shows fuel prices for service stations in New South Wales in September.  
 
-The plot shows data extracted for only one service station for simplicity.  
+--- .class #id 
 
-## Caltex Ballina Fuel prices September 2016    
+## The model concept
 
-```{r, eval=TRUE, echo = FALSE, message = FALSE, warning=FALSE}
-library(plotly)
-library(lubridate)
+A linear model based on some pseudo-random data, generated in R
 
-setwd("C:\\Users\\Alan\\Desktop\\DSc-DataProducts\\wk3-ass\\")
-fuelDS <- read.csv("Ballina-CTX-Fuel-September-2016.csv")
-fuelDS$PriceUpdatedDate <- c(dmy_hm(fuelDS$PriceUpdatedDate[1:39]),dmy_hms(fuelDS$PriceUpdatedDate[40:91]))
-attach(fuelDS)
+```{r block_1, echo = FALSE, results='asis'}
 
-plot_ly(fuelDS, x = PriceUpdatedDate, y = Price, color = FuelCode, type = "scatter") %>%
-  layout(yaxis = list(title = "Fuel Price in cents"))
+x <- runif(150, 0,500) 
+y <- 20 + 1.25 * x + rnorm(150, 0, 50)
+theModel <- lm(y ~ x, data = data.frame(y, x))
+plot(x, y, xlab='x value', col='blue',main='The Model', xlim=c(-25,max(x)), ylim=c(-50,500))
+abline(theModel, col="green",lwd=3)
+
 ```
-   
-## Notes
-
-The data is a data frame with values for three different types of fuel, E10, P95 and PDL.
-Where:  
-* E10 is fuel containing 10% ethanol  
-* P95 is premium grade 95  
-* PDL is premium diesel  
-
-Note also that there are multiple observations on the same day.  This makes the data appear by default as a scatter plot.  I would prefer to manipulate the data further in order to make a clean time series, but time is limited.
-
-Note also that there is not much data for the PDL FuelCode.   
 
 
-## References
-1. New South Wales Government Fair Trading Fuel Check
-[http://data.nsw.gov.au/data/dataset/fuel-check](http://data.nsw.gov.au/data/dataset/fuel-check)
+--- .class #id 
 
-The data used above was extracted from the September file.
+## Generating linear data with some random error
+
+Generating linear data.
+
+      y = a + b * x + e
+
+y - a linear transformation of the x data with some random error added   
+a - is the intercept   
+b - is the slope   
+x - uniformly distributed random data   
+e - is normally distributed with standard deviation set by the user.  
+
+Note that student can change a, b, and e dynamically using sliders.
+
+A linear model is fitted to the generated data and plotted over the generated points.
+The R-squared value for the model is displayed to the user.
+
+--- .class #id 
+
+## ShinyApp Easy App
+
+* Enables students to dynamically visualize a linear model
+* App implements the functionality in reactive manner
+* No coding required from students
+* Easily deployable to 'cloud'
+* Easy application and user management
+
+Thanks for your attention
+
